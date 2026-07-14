@@ -12,7 +12,7 @@ img_path: /assets/img/posts/mroc-drp-06
 > staff names are fictional.
 {: .prompt-info }
 
-[Part 5: Pre-Event & Post-Event Mitigations](/posts/mroc-disaster-recovery-plan-part-5-pre-event-post-event-mitigations/)
+[Part 5: Pre-Event & Post-Event Mitigations](/posts/mroc-drp-05-mitigations/)
 
 ## Overview
 
