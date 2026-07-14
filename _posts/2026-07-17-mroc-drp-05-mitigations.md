@@ -12,7 +12,7 @@ img_path: /assets/img/posts/mroc-drp-05
 > fictional.
 {: .prompt-info }
 
-[Part 4: Risk Response Strategies](/posts/mroc-disaster-recovery-plan-part-4-risk-response-strategies/)
+[Part 4: Risk Response Strategies](/posts/mroc-drp-04-risk-response-strategies/)
 
 ## Pre-Event Mitigations
 
@@ -109,4 +109,4 @@ formally closing out each type of incident.
 
 ---
 
-**Next: [Part 6 — Test Plan & Glossary](/posts/mroc-disaster-recovery-plan-part-6-test-plan-glossary/)**
+**Next: [Part 6 — Test Plan & Glossary](/posts/mroc-drp-06-testing-maintenance/)**
