@@ -32,6 +32,7 @@ comments:
   active: ""                                 # leave blank until you want a comments provider
 
 paginate: 10
+future: true
 
 # ------------ theme settings not usually needed to touch ------------
 theme_mode:
