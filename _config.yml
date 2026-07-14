@@ -1,0 +1,98 @@
+# The Site Configuration
+
+theme: jekyll-theme-chirpy
+
+lang: en
+
+timezone: America/New_York
+
+title: Travis's Security Portfolio          # Change to your name
+tagline: CTF writeups, security labs, and disaster recovery / GRC work
+
+url: "https://YOURUSERNAME.github.io"       # replace with your GitHub username
+
+github:
+  username: YOURUSERNAME
+
+social:
+  name: Travis                               # your real name for structured data
+  links:
+    - https://github.com/YOURUSERNAME
+    # - https://tryhackme.com/p/YOURHANDLE
+    # - https://app.hackthebox.com/profile/YOURID
+    # - https://www.linkedin.com/in/YOURPROFILE
+
+# Avatar shown top-left of sidebar. Put a square image at assets/img/avatar.png
+avatar: /assets/img/avatar.png
+
+# Enable a "Table of Contents" on posts (great for long CTF writeups / DRP modules)
+toc: true
+
+comments:
+  active: ""                                 # leave blank until you want a comments provider
+
+paginate: 10
+
+# ------------ theme settings not usually needed to touch ------------
+theme_mode:
+
+kramdown:
+  syntax_highlighter: rouge
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: true
+      toc: true
+      permalink: /posts/:title/
+  - scope:
+      path: _drafts
+    values:
+      comments: false
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
+
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - docs/
+  - tools/
+  - README.md
+  - LICENSE
+  - rollup.config.js
+  - node_modules
+  - "*.config.js"
+  - package*.json
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
