@@ -71,4 +71,4 @@ partners meet applicable health information regulations.
 
 ---
 
-**Next: [Part 2 — Critical Business Functions](/posts/mroc-disaster-recovery-plan-part-2-critical-business-functions/)**
+**Next: [Part 2 — Critical Business Functions](/posts/mroc-drp-02-critical-functions/)**
