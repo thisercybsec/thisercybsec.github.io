@@ -12,7 +12,7 @@ img_path: /assets/img/posts/mroc-drp-04
 > fictional.
 {: .prompt-info }
 
-[Part 3: Risk Register Summary](/posts/mroc-disaster-recovery-plan-part-3-risk-register-summary/)
+[Part 3: Risk Register Summary](/posts/mroc-drp-03-risk-register/)
 
 ## Overview
 
@@ -162,4 +162,4 @@ MROC risk register. Each risk is broken into three stages:
 
 ---
 
-**Next: [Part 5 — Pre-Event & Post-Event Mitigations](/posts/mroc-disaster-recovery-plan-part-5-pre-event-post-event-mitigations/)**
+**Next: [Part 5 — Pre-Event & Post-Event Mitigations](/posts/mroc-drp-05-mitigations/)**
