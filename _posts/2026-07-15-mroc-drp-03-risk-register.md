@@ -12,7 +12,7 @@ img_path: /assets/img/posts/mroc-drp-03
 > fictional.
 {: .prompt-info }
 
-[Part 2: Critical Business Functions](/posts/mroc-disaster-recovery-plan-part-2-critical-business-functions/)
+[Part 2: Critical Business Functions](/posts/mroc-drp-02-critical-functions/)
 
 ## Overview
 
@@ -90,4 +90,4 @@ classified as High, Medium, or Low on each dimension.
 
 ---
 
-**Next: [Part 4 — Risk Response Strategies](/posts/mroc-disaster-recovery-plan-part-4-risk-response-strategies/)**
+**Next: [Part 4 — Risk Response Strategies](/posts/mroc-drp-04-risk-response-strategies/)**
