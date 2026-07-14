@@ -12,7 +12,7 @@ img_path: /assets/img/posts/mroc-drp-02
 > fictional.
 {: .prompt-info }
 
-[Part 1: Company Overview](/posts/mroc-disaster-recovery-plan-part-1-company-overview/)
+[Part 1: Company Overview](/posts/mroc-drp-01-company-overview/)
 
 ## Overview
 
@@ -83,4 +83,4 @@ Medium, and one Low.
 
 ---
 
-**Next: [Part 3 — Risk Register Summary](/posts/mroc-disaster-recovery-plan-part-3-risk-register-summary/)**
+**Next: [Part 3 — Risk Register Summary](/posts/mroc-drp-03-risk-register/)**
