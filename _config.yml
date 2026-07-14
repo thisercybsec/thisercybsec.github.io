@@ -9,15 +9,15 @@ timezone: America/New_York
 title: Travis's Security Portfolio          # Change to your name
 tagline: CTF writeups, security labs, and disaster recovery / GRC work
 
-url: "https://YOURUSERNAME.github.io"       # replace with your GitHub username
+url: "https://thisercybsec.github.io"       # replace with your GitHub username
 
 github:
-  username: YOURUSERNAME
+  username: thisercybsec
 
 social:
   name: Travis                               # your real name for structured data
   links:
-    - https://github.com/YOURUSERNAME
+    - https://github.com/thisercybsec
     # - https://tryhackme.com/p/YOURHANDLE
     # - https://app.hackthebox.com/profile/YOURID
     # - https://www.linkedin.com/in/YOURPROFILE
