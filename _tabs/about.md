@@ -6,9 +6,8 @@ order: 4
 
 I'm a cybersecurity student at Indiana Tech, currently working through a
 security-focused curriculum covering disaster recovery / GRC, scripting
-(PowerShell, Python, Bash), and networking. I'm preparing for the CompTIA
-Network+ certification and exploring paths like the DoD Cyber Apprenticeship
-Program (Cyber RAP).
+(PowerShell, Python, Bash), and networking. I recently passed the preparing CompTIA
+Network+ certification and am currently pursing my CompTIA Security + certification.
 
 This site is where I post:
 
@@ -21,9 +20,14 @@ This site is where I post:
   built for a fictional healthcare clinic (Midwest Regional Outpatient Clinic)
   as part of a semester-long coursework project.
 
+## Certifications
+
+- CC from ISC2
+- CompTIA Netwrok +
+  
 ## Certifications in progress
 
-- CompTIA Network+ (in progress)
+- CompTIA Security+ (in progress)
 
 ## Contact
 
