@@ -66,19 +66,17 @@ Each machine has its own detailed build/troubleshooting log:
 - ✅ CA02 — online Enterprise Issuing CA, Certificate Services running, `pkiview.msc` shows all green
 - ⏳ CA01 confirmed powered off / disconnected to restore its offline posture
 
-## Phase 2 (planned)
+## Phase 2 — complete
 
-Phase 1 covers the core CA hierarchy. Phase 2 will cover:
+Phase 2 covers Group Policy publishing of the trust chain, building a
+domain-joined test client, and proving end-to-end certificate
+enrollment actually works:
 
-- **Group Policy publishing** on DC01 — pushing the Root CA cert to
-  Trusted Root Certification Authorities and the Subordinate CA cert to
-  Intermediate Certification Authorities domain-wide
-- **Building the CLIENT VM**, joining it to `lab.local`, and confirming
-  both CA certs land correctly via `gpupdate /force` and `certmgr.msc`
-- **End-to-end enrollment test** — requesting a certificate from the
-  client via `certmgr.msc` or the `certsrv` web enrollment page, to prove
-  the entire chain works from a client's perspective, not just on the
-  CAs themselves
+**[Phase 2 — Group Policy Publishing & Client Enrollment]({% post_url 2026-07-25-pki-lab-phase2-gpo-client-enrollment %})**
 
-I'll post Phase 2 as its own writeup once the client build and enrollment
-test are done.
+The core project objective — a realistic two-tier PKI hierarchy,
+validated end to end from an offline root through a successful client
+certificate enrollment — is complete. That post also covers the
+troubleshooting that ate up the most time in the whole project: an RPC
+error that turned out to actually be Kerberos clock skew.
+
