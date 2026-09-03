@@ -7,13 +7,15 @@ tags: [systemd, linux-hardening, honeypot, journald, acl, permissions]
 
 ## Overview
 
-First lab session working toward an eventual honeynet build. The goal today
+First lab session working toward an eventual honeynet build. The goal
 wasn't the honeypot itself — it was building and *proving* the foundational
 Linux controls a honeynet depends on: an unprivileged service account, a
 hardened systemd unit, a least-privilege permission model between two
-service roles, and centralized logging via journald. Everything was done on
-a single Ubuntu VM (VirtualBox), with each step manually verified rather
-than assumed to work.
+service roles, and centralized logging via journald. The initial pass was
+done on a single Ubuntu VM (VirtualBox), with each step manually verified
+rather than assumed to work. A second session repeated the systemd hardening
+and package-pinning drill on an AlmaLinux VM to directly compare
+Debian-family vs RHEL-family behavior, including SELinux vs AppArmor.
 
 ## Stage 1: Unprivileged Service Account
 
@@ -194,23 +196,85 @@ sudo journalctl -u honeytest --since today -o json | tail -5 \
   | jq '{time: .__REALTIME_TIMESTAMP, message: .MESSAGE}'
 ```
 
+## Debian-family vs RHEL-family Comparison (AlmaLinux)
+
+Repeated the account setup and systemd hardening exactly on an AlmaLinux VM
+to compare against the Ubuntu results.
+
+**Service account and shell restriction:** identical behavior. `useradd
+--system --no-create-home --shell /usr/sbin/nologin honeytest` produced a
+private group automatically (same as Ubuntu's `useradd`, unlike Ubuntu's
+`adduser` wrapper, which behaves differently). `sudo su - honeytest` refused
+a shell on Alma exactly as it did on Ubuntu.
+
+**System UID range — a real, citable difference:**
+
+| | Ubuntu | AlmaLinux |
+|---|---|---|
+| `/etc/login.defs` system range | Not declared (`SYS_UID_MIN`/`MAX` absent) | `SYS_UID_MIN=201`, `SYS_UID_MAX=999` |
+| Regular-user range | `UID_MIN=1000`, `UID_MAX=60000` | (not checked) |
+
+**systemd hardening — fully portable, including under SELinux enforcing:**
+Alma ships SELinux in `Enforcing` mode by default (vs. Ubuntu's AppArmor).
+Every directive from the original four-item hardening list was added one at
+a time and cross-checked against `ausearch -m avc -ts recent` for AVC
+denials at each step — none occurred.
+
+| Directive | Ubuntu score | Alma score | SELinux denial? |
+|---|---|---|---|
+| (baseline, unhardened) | 9.2 UNSAFE | 9.2 UNSAFE | — |
+| `NoNewPrivileges=true` | 9.0 | 9.0 | No |
+| `ProtectSystem=strict` | 8.7 | 8.7 | No |
+| `PrivateTmp=true` | 8.5 | 8.5 | No |
+| `ReadOnlyPaths=/` | 8.5 (unscored) | 8.5 (unscored) | No |
+
+Result: for this specific unit, the hardening directives behaved
+identically on both distros, both in exposure score and in absence of
+mandatory-access-control interference — a legitimate finding, not just a
+"nothing happened" non-result. Worth testing rather than assuming, since a
+more complex real service (one that writes logs, binds privileged ports, or
+touches non-standard paths) would be a more likely candidate to actually
+trip SELinux where this toy server didn't.
+
+**Package pinning — `apt-mark hold` vs `dnf versionlock`:**
+
+- `apt-mark hold` is built into `apt` itself, no extra install required.
+- `dnf versionlock` requires installing a separate plugin first:
+  `sudo dnf install -y python3-dnf-plugin-versionlock`.
+- Both mechanisms were configured and confirmed present in their respective
+  listings (`apt-mark showhold` showed `curl`; `dnf versionlock list` showed
+  `python3`).
+- Neither was exercised against a real pending update — both VMs were
+  freshly provisioned with no newer package versions available in their
+  repos at test time (`apt list --upgradable` and `dnf check-update` both
+  came back empty for the locked packages on their respective boxes). This
+  is documented honestly as "lock mechanism configured and verified
+  present, not proven to block an actual upgrade," rather than overclaiming
+  a full test that didn't actually occur.
+
 ## Summary
 
 | Item | Result |
 |---|---|
-| Starting exposure score | 9.2 / UNSAFE |
-| Ending exposure score | 8.5 / EXPOSED |
-| Service account isolation | Verified (`nologin`, no shell obtainable even via root `su`) |
+| Starting exposure score (both distros) | 9.2 / UNSAFE |
+| Ending exposure score (both distros) | 8.5 / EXPOSED |
+| Service account isolation | Verified (`nologin`, no shell obtainable even via root `su`) — identical on both distros |
 | Two-role permission split | Verified via live write/read tests, not just `ls -l` |
 | Structured logging | Confirmed live capture + JSON export path for future shipping |
+| SELinux vs AppArmor impact on this unit | None observed — hardening fully portable |
+| Package pinning | Both mechanisms configured/verified present; not exercised against a real available update |
 
 ## Next Steps
 
-- Package management drill (`apt-mark hold` vs `dnf versionlock`) once a
-  Rocky/AlmaLinux VM is available for side-by-side comparison
+- Re-test the package pinning drill against a package with an actual
+  pending update, to get a real (not just configured) proof of both
+  `apt-mark hold` and `dnf versionlock` blocking an upgrade
 - Push `systemd-analyze security` further (untouched categories included
   `RestrictNamespaces=`, `SystemCallFilter=~@*` syscall groups, and
   `ProtectHostname=`/`ProtectClock=`)
+- Try a service that actually needs to write somewhere (logs, a pidfile, a
+  non-standard port) to get a more meaningful SELinux vs AppArmor
+  comparison than this toy server provided
 - Long-term goal: extend this single-service foundation into a full
   honeynet — multiple isolated honeypot services, network-level isolation
   between them (separate from anything systemd controls), and centralized
