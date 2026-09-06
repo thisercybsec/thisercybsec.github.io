@@ -1,5 +1,5 @@
 ---
-title: "Phase 0 - Week 3 – Lab 04: Proving VLAN Isolation, Don't Assume It"
+title: "Phase 0 - Week 2 – Lab 04: Proving VLAN Isolation, Don't Assume It"
 date: 2026-09-06 02:00:00 -0400
 categories: [Homelab, Phase 0 - Foundation]
 tags: [pfsense, vlan, virtualbox, networking, honeynet, firewall, nat]
